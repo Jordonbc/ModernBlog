@@ -537,3 +537,56 @@ body.list .main {
     left: -1rem;
   }
 }
+
+.content pre {
+  position: relative;
+  isolation: isolate;
+  background: rgba(10, 12, 18, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 18px;
+  padding: 1.1rem 1.25rem;
+  box-shadow: 0 30px 45px rgba(0, 0, 0, 0.65);
+  background-clip: padding-box;
+  overflow: hidden;
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+}
+
+.content pre::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.03);
+  filter: blur(36px);
+  opacity: 0.45;
+  z-index: -1;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+}
+
+.content pre code {
+  background: transparent;
+  color: var(--gn-ink);
+  position: relative;
+  z-index: 1;
+}
+
+@supports ((-webkit-backdrop-filter: blur(0)) or (backdrop-filter: blur(0))) {
+  .content pre {
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+}
+
+.content pre::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 55%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 3px);
+  mix-blend-mode: screen;
+  opacity: 0.32;
+  pointer-events: none;
+  z-index: 0;
+}
