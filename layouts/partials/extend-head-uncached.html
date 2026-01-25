@@ -1,0 +1,18 @@
+{{/* Page-scoped head extensions (has full page context, unlike `extend-head.html`). */}}
+{{ if .IsHome }}
+  <style>
+    body {
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      height: auto !important;
+      min-height: 100vh !important;
+    }
+
+    /* Hide the global header/nav on the homepage (the layout renders its own sidebar nav). */
+    body > .main-menu,
+    body > #the-top {
+      display: none !important;
+    }
+  </style>
+{{ end }}

@@ -2,16 +2,24 @@
   {{ $featuredBool := where .Site.RegularPages "Params.featured" true }}
   {{ $featuredStr := where .Site.RegularPages "Params.featured" "true" }}
   {{ $featured := sort (union $featuredBool $featuredStr) "Date" "desc" }}
+  {{ $mainSections := .Site.Params.mainSections | default (slice "posts") }}
+  {{ $recent := first 6 (sort (where .Site.RegularPages "Section" "in" $mainSections) "Date" "desc") }}
 
   <main class="home">
     {{ partial "home-rail.html" . }}
 
     <section class="home-main">
-      <article class="home-about">
-        <div class="content">
-          {{ .Content }}
+      <section class="home-posts">
+        <header class="section-header">
+          <p class="section-header__eyebrow">Writing</p>
+          <h2>Latest posts</h2>
+        </header>
+        <div class="post-grid">
+          {{ range $index, $post := $recent }}
+            {{ partial "post-card.html" (dict "page" $post "index" $index) }}
+          {{ end }}
         </div>
-      </article>
+      </section>
 
       {{ if gt (len $featured) 0 }}
         <section class="home-featured">
@@ -19,7 +27,7 @@
             <p class="section-header__eyebrow">Spotlight</p>
             <h2>Featured posts</h2>
           </header>
-          <div class="post-grid">
+          <div class="post-grid post-grid--dense">
             {{ range $index, $post := first 6 $featured }}
               {{ partial "post-card.html" (dict "page" $post "index" $index) }}
             {{ end }}

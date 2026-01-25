@@ -1,19 +1,16 @@
 {{ $brandName := .Site.Params.brandName | default (replaceRE "^Blog \\|\\s*" "" .Site.Title) }}
+{{ $eyebrow := .Site.Params.homepageEyebrow | default "Technical blog" }}
 
 <section class="home-rail">
-  <div class="home-rail__card">
-    <div class="home-rail__brand">
-      <span class="home-rail__mark" aria-hidden="true"></span>
-      <div class="home-rail__brandtext">
-        <h1 class="home-rail__title">{{ $brandName }}</h1>
-        {{ with .Site.Params.sidebarFooter }}
-          <div class="home-rail__tagline">{{ . | markdownify }}</div>
-        {{ else }}
-          <p class="home-rail__tagline">Gameplay programming, Unreal Engine, and VR experiments.</p>
-        {{ end }}
-      </div>
-    </div>
-  </div>
+  <header class="home-masthead">
+    {{ with $eyebrow }}
+      <p class="home-masthead__eyebrow">{{ . }}</p>
+    {{ end }}
+    <h1 class="home-masthead__title">{{ $brandName }}</h1>
+    {{ with .Site.Params.homepageSubtitle }}
+      <p class="home-masthead__subtitle">{{ . }}</p>
+    {{ end }}
+  </header>
 
   <nav class="home-rail__nav" aria-label="Primary">
     {{ range .Site.Menus.main }}

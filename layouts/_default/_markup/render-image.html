@@ -11,7 +11,7 @@
     (strings.HasPrefix $dest "data:")
 -}}
 
-{{- if and (not $isAbs) .Page.File -}}
+{{- if not $isAbs -}}
   {{- $dir := strings.TrimSuffix "/" .Page.File.Dir -}}
   {{- $slug := .Page.File.ContentBaseName -}}
 
@@ -19,8 +19,7 @@
   {{- $mediaPath := printf "%s/%s/%s" $dir $slug $dest -}}
 
   {{- with site.Params.mediaBaseURL -}}
-    {{- $base := strings.TrimSuffix "/" . -}}
-    {{- $src = printf "%s/%s" $base (strings.TrimPrefix "/" $mediaPath) -}}
+    {{- $src = printf "%s/%s" . (strings.TrimPrefix "/" $mediaPath) -}}
   {{- end -}}
 {{- end -}}
 

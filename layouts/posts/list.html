@@ -1,0 +1,41 @@
+{{ define "main" }}
+  <main class="page page--timeline">
+    <header class="page-header">
+      <p class="page-header__eyebrow">{{ .Section | default "Index" | title }}</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.description }}
+        <p class="page-header__summary">{{ . }}</p>
+      {{ end }}
+      {{ with .Content }}
+        <div class="content">{{ . }}</div>
+      {{ end }}
+    </header>
+
+    <section class="post-timeline">
+      {{ $currentYear := "" }}
+      {{ range $index, $post := .Pages.ByDate.Reverse }}
+        {{ $year := $post.Date.Format "2006" }}
+        {{ if ne $year $currentYear }}
+          {{ if ne $currentYear "" }}
+            </div>
+          </section>
+          {{ end }}
+          <section class="timeline-group">
+            <div class="timeline-group__header">
+              <div>
+                <p class="timeline-group__eyebrow">Year</p>
+                <h2 class="timeline-group__year">{{ $year }}</h2>
+              </div>
+            </div>
+            <div class="timeline-group__posts post-grid">
+        {{ end }}
+        {{ partial "post-card.html" (dict "page" $post "index" $index) }}
+        {{ $currentYear = $year }}
+      {{ end }}
+      {{ if ne $currentYear "" }}
+        </div>
+      </section>
+      {{ end }}
+    </section>
+  </main>
+{{ end }}

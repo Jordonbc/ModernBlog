@@ -1,5 +1,6 @@
 {{ $css := "css/bbgames.css" | relURL }}
 <link rel="stylesheet" href="{{ $css }}">
+{{ partial "extend-head.html" . }}
 <link rel="alternate" type="application/rss+xml" href="{{ "index.xml" | relURL }}" title="{{ .Site.Title }}">
 
 {{ if .IsPage }}
