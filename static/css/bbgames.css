@@ -406,20 +406,20 @@ main.home {
 }
 
 .site-footer {
-  margin-top: 3rem;
-  padding: 2.5rem 1.5rem 3rem;
+  margin-top: 2.5rem;
+  padding: 2.25rem clamp(1.5rem, 4vw, 4.5rem) 2.75rem;
   border-top: 1px solid rgba(38, 48, 66, 0.6);
-  background: rgba(11, 15, 20, 0.9);
+  background: linear-gradient(180deg, rgba(11, 15, 20, 0.35), rgba(11, 15, 20, 0.85));
   position: relative;
   z-index: 1;
 }
 
 .site-footer__inner {
-  max-width: 960px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
   font-size: 0.85rem;
   color: var(--muted);
 }
