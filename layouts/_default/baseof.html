@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="{{ .Site.LanguageCode | default "en" }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      {{- if .IsHome -}}
+        {{ .Site.Title }}
+      {{- else -}}
+        {{ .Title }} - {{ .Site.Title }}
+      {{- end -}}
+    </title>
+    {{ partial "head.html" . }}
+  </head>
+  <body class="{{ .Kind }}{{ if .IsHome }} is-home{{ end }}">
+    {{ if not .IsHome }}
+      {{ partial "site-header.html" . }}
+    {{ end }}
+
+    {{ block "main" . }}{{ end }}
+
+    {{ partial "site-footer.html" . }}
+  </body>
+</html>

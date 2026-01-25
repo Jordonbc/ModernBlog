@@ -1,0 +1,14 @@
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-logo" href="{{ "/" | relURL }}">
+      <span class="site-logo__mark"></span>
+      <span class="site-logo__text">{{ .Site.Title }}</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      {{ range .Site.Menus.main }}
+        <a class="site-nav__link" href="{{ .URL | relURL }}">{{ .Name }}</a>
+      {{ end }}
+      <a class="site-nav__link" href="{{ "index.xml" | relURL }}">RSS</a>
+    </nav>
+  </div>
+</header>

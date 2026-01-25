@@ -1,0 +1,10 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <p>© {{ now.Format "2006" }} {{ .Site.Title }}</p>
+    {{ with .Site.Params.footerNote }}
+      <p>{{ . | markdownify }}</p>
+    {{ else }}
+      <p>Built with Hugo and plenty of late-night caffeine.</p>
+    {{ end }}
+  </div>
+</footer>

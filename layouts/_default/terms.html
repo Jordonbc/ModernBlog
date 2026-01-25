@@ -1,0 +1,20 @@
+{{ define "main" }}
+  <main class="page">
+    <header class="page-header">
+      <p class="page-header__eyebrow">Collections</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Content }}
+        <div class="content">{{ . }}</div>
+      {{ end }}
+    </header>
+
+    <section class="term-grid">
+      {{ range .Data.Terms.Alphabetical }}
+        <a class="term-card" href="{{ .Page.RelPermalink }}">
+          <h2>{{ .Page.Title }}</h2>
+          <p>{{ .Count }} posts</p>
+        </a>
+      {{ end }}
+    </section>
+  </main>
+{{ end }}

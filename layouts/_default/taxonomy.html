@@ -1,0 +1,14 @@
+{{ define "main" }}
+  <main class="page">
+    <header class="page-header">
+      <p class="page-header__eyebrow">{{ .Data.Singular | title }}</p>
+      <h1>{{ .Title }}</h1>
+    </header>
+
+    <section class="post-grid post-grid--dense">
+      {{ range $index, $post := .Pages.ByDate.Reverse }}
+        {{ partial "post-card.html" (dict "page" $post "index" $index) }}
+      {{ end }}
+    </section>
+  </main>
+{{ end }}

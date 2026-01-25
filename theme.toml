@@ -1,0 +1,8 @@
+name = "BBGames"
+license = "MIT"
+licenselink = "https://opensource.org/licenses/MIT"
+description = "Custom blog theme for bbgames.dev"
+min_version = "0.116.0"
+
+[author]
+name = "bbgames"

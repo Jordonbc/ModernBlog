@@ -1,0 +1,17 @@
+{{ $limit := .Get "limit" | default 6 }}
+{{ $title := .Get "title" | default "Featured posts" }}
+{{ $featuredBool := where .Site.RegularPages "Params.featured" true }}
+{{ $featuredStr := where .Site.RegularPages "Params.featured" "true" }}
+{{ $featured := sort (union $featuredBool $featuredStr) "Date" "desc" }}
+
+<section class="home-featured">
+  <header class="section-header">
+    <p class="section-header__eyebrow">Spotlight</p>
+    <h2>{{ $title }}</h2>
+  </header>
+  <div class="post-grid">
+    {{ range $index, $post := first $limit $featured }}
+      {{ partial "post-card.html" (dict "page" $post "index" $index) }}
+    {{ end }}
+  </div>
+</section>

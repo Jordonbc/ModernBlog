@@ -1,0 +1,51 @@
+{{ define "main" }}
+  {{ $featuredBool := where .Site.RegularPages "Params.featured" true }}
+  {{ $featuredStr := where .Site.RegularPages "Params.featured" "true" }}
+  {{ $featured := sort (union $featuredBool $featuredStr) "Date" "desc" }}
+  {{ $brandName := .Site.Params.brandName | default (replaceRE "^Blog \\|\\s*" "" .Site.Title) }}
+
+  <main class="home">
+    <section class="home-rail">
+      <div class="home-rail__card">
+        <p class="home-rail__eyebrow">Field Notes</p>
+        <h1 class="home-rail__title">{{ $brandName }}</h1>
+        {{ with .Site.Params.sidebarTagline }}
+          <p class="home-rail__tagline">{{ . | markdownify }}</p>
+        {{ end }}
+      </div>
+
+      <nav class="home-rail__nav" aria-label="Primary">
+        {{ range .Site.Menus.main }}
+          <a class="home-rail__link" href="{{ .URL | relURL }}">{{ .Name }}</a>
+        {{ end }}
+        <a class="home-rail__link" href="{{ "index.xml" | relURL }}">RSS</a>
+      </nav>
+
+      <div class="home-rail__footer">
+        <p>Gameplay programming, Unreal Engine, and VR experiments.</p>
+      </div>
+    </section>
+
+    <section class="home-main">
+      <article class="home-about">
+        <div class="content">
+          {{ .Content }}
+        </div>
+      </article>
+
+      {{ if gt (len $featured) 0 }}
+        <section class="home-featured">
+          <header class="section-header">
+            <p class="section-header__eyebrow">Spotlight</p>
+            <h2>Featured posts</h2>
+          </header>
+          <div class="post-grid">
+            {{ range $index, $post := first 6 $featured }}
+              {{ partial "post-card.html" (dict "page" $post "index" $index) }}
+            {{ end }}
+          </div>
+        </section>
+      {{ end }}
+    </section>
+  </main>
+{{ end }}

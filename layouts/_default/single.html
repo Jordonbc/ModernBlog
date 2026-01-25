@@ -1,0 +1,32 @@
+{{ define "main" }}
+  <main class="page">
+    <article class="post">
+      <header class="post-header">
+        <p class="post-header__eyebrow">
+          {{ if .Section }}{{ .Section | title }}{{ else }}Post{{ end }}
+          <span>-</span>
+          <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+        </p>
+        <h1>{{ .Title }}</h1>
+        {{ with .Params.description }}
+          <p class="post-header__summary">{{ . }}</p>
+        {{ end }}
+        <div class="post-header__meta">
+          <span>{{ .ReadingTime }} min read</span>
+          {{ with .Params.tags }}
+            <span>-</span>
+            <div class="tag-row">
+              {{ range . }}
+                <a class="tag" href="{{ "/tags/" | relURL }}{{ . | urlize }}/">{{ . }}</a>
+              {{ end }}
+            </div>
+          {{ end }}
+        </div>
+      </header>
+
+      <div class="content">
+        {{ .Content }}
+      </div>
+    </article>
+  </main>
+{{ end }}

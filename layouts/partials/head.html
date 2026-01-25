@@ -1,0 +1,19 @@
+{{ $css := "css/bbgames.css" | relURL }}
+<link rel="stylesheet" href="{{ $css }}">
+<link rel="alternate" type="application/rss+xml" href="{{ "index.xml" | relURL }}" title="{{ .Site.Title }}">
+
+{{ if .IsPage }}
+  {{ with .Description }}
+    <meta name="description" content="{{ . }}">
+  {{ else }}
+    {{ with .Summary }}
+      <meta name="description" content="{{ . | plainify }}">
+    {{ end }}
+  {{ end }}
+{{ else }}
+  {{ with .Site.Params.sidebarTagline }}
+    <meta name="description" content="{{ . | plainify }}">
+  {{ end }}
+{{ end }}
+
+<meta name="theme-color" content="#0b0f14">

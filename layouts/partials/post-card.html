@@ -1,0 +1,18 @@
+{{ $page := .page }}
+{{ $index := .index | default 0 }}
+{{ $summary := $page.Summary | plainify | truncate 160 }}
+
+<article class="post-card" style="--delay: {{ mul $index 0.08 }}s">
+  <p class="post-card__meta">
+    <span>{{ $page.Date.Format "Jan 2, 2006" }}</span>
+    <span>-</span>
+    <span>{{ $page.ReadingTime }} min read</span>
+  </p>
+  <h3 class="post-card__title">
+    <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+  </h3>
+  {{ with $summary }}
+    <p class="post-card__summary">{{ . }}</p>
+  {{ end }}
+  <a class="post-card__cta" href="{{ $page.RelPermalink }}">Read post -></a>
+</article>

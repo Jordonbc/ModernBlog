@@ -1,0 +1,20 @@
+{{ define "main" }}
+  <main class="page">
+    <header class="page-header">
+      <p class="page-header__eyebrow">{{ .Section | default "Index" | title }}</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.description }}
+        <p class="page-header__summary">{{ . }}</p>
+      {{ end }}
+      {{ with .Content }}
+        <div class="content">{{ . }}</div>
+      {{ end }}
+    </header>
+
+    <section class="post-grid post-grid--dense">
+      {{ range $index, $post := .Pages.ByDate.Reverse }}
+        {{ partial "post-card.html" (dict "page" $post "index" $index) }}
+      {{ end }}
+    </section>
+  </main>
+{{ end }}
