@@ -6,7 +6,9 @@
     </a>
     <nav class="site-nav" aria-label="Main">
       {{ range .Site.Menus.main }}
-        <a class="site-nav__link" href="{{ .URL | relURL }}">{{ .Name }}</a>
+        {{- $isExternal := or (strings.HasPrefix .URL "http://") (strings.HasPrefix .URL "https://") (strings.HasPrefix .URL "//") -}}
+        {{- $href := cond $isExternal .URL (.URL | relURL) -}}
+        <a class="site-nav__link" href="{{ $href }}">{{ .Name }}</a>
       {{ end }}
       <a class="site-nav__link" href="{{ "index.xml" | relURL }}">RSS</a>
     </nav>
