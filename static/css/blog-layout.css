@@ -460,19 +460,6 @@ body.list .main {
   gap: 0.85rem;
 }
 
-.timeline-group__header::after {
-  content: '';
-  position: absolute;
-  left: -1.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: var(--gn-accent);
-  box-shadow: 0 0 18px rgba(110, 231, 255, 0.4);
-}
-
 .timeline-group__eyebrow {
   font-family: 'IBM Plex Mono', 'Courier New', monospace;
   font-size: 0.65rem;
@@ -533,9 +520,6 @@ body.list .main {
     margin-left: 0.9rem;
   }
 
-  .timeline-group__header::after {
-    left: -1rem;
-  }
 }
 
 .content pre {
