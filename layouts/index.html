@@ -6,8 +6,6 @@
   {{ $recent := first 6 (sort (where .Site.RegularPages "Section" "in" $mainSections) "Date" "desc") }}
 
   <main class="home">
-    {{ partial "home-rail.html" . }}
-
     <section class="home-main">
       <section class="home-posts">
         <header class="section-header">
