@@ -2,11 +2,17 @@
 
 <section class="home-rail">
   <div class="home-rail__card">
-    <p class="home-rail__eyebrow">Field Notes</p>
-    <h1 class="home-rail__title">{{ $brandName }}</h1>
-    {{ with .Site.Params.sidebarTagline }}
-      <p class="home-rail__tagline">{{ . | markdownify }}</p>
-    {{ end }}
+    <div class="home-rail__brand">
+      <span class="home-rail__mark" aria-hidden="true"></span>
+      <div class="home-rail__brandtext">
+        <h1 class="home-rail__title">{{ $brandName }}</h1>
+        {{ with .Site.Params.sidebarFooter }}
+          <div class="home-rail__tagline">{{ . | markdownify }}</div>
+        {{ else }}
+          <p class="home-rail__tagline">Gameplay programming, Unreal Engine, and VR experiments.</p>
+        {{ end }}
+      </div>
+    </div>
   </div>
 
   <nav class="home-rail__nav" aria-label="Primary">
@@ -18,11 +24,9 @@
     <a class="home-rail__link" href="{{ "index.xml" | relURL }}">RSS</a>
   </nav>
 
-  <div class="home-rail__footer">
-    {{ with .Site.Params.sidebarFooter }}
-      <p>{{ . }}</p>
-    {{ else }}
-      <p>Gameplay programming, Unreal Engine, and VR experiments.</p>
-    {{ end }}
-  </div>
+  {{ with .Site.Params.sidebarTagline }}
+    <div class="home-rail__footer">
+      <p>{{ . | markdownify }}</p>
+    </div>
+  {{ end }}
 </section>
