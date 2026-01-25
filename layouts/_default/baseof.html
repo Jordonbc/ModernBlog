@@ -13,11 +13,16 @@
     {{ partial "head.html" . }}
   </head>
   <body class="{{ .Kind }}{{ if .IsHome }} is-home{{ end }}">
-    {{ if not .IsHome }}
-      {{ partial "site-header.html" . }}
+    {{ if .IsHome }}
+      {{ block "main" . }}{{ end }}
+    {{ else }}
+      <div class="page-shell">
+        {{ partial "home-rail.html" . }}
+        <div class="page-shell__main">
+          {{ block "main" . }}{{ end }}
+        </div>
+      </div>
     {{ end }}
-
-    {{ block "main" . }}{{ end }}
 
     {{ partial "site-footer.html" . }}
   </body>

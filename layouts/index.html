@@ -2,31 +2,9 @@
   {{ $featuredBool := where .Site.RegularPages "Params.featured" true }}
   {{ $featuredStr := where .Site.RegularPages "Params.featured" "true" }}
   {{ $featured := sort (union $featuredBool $featuredStr) "Date" "desc" }}
-  {{ $brandName := .Site.Params.brandName | default (replaceRE "^Blog \\|\\s*" "" .Site.Title) }}
 
   <main class="home">
-    <section class="home-rail">
-      <div class="home-rail__card">
-        <p class="home-rail__eyebrow">Field Notes</p>
-        <h1 class="home-rail__title">{{ $brandName }}</h1>
-        {{ with .Site.Params.sidebarTagline }}
-          <p class="home-rail__tagline">{{ . | markdownify }}</p>
-        {{ end }}
-      </div>
-
-      <nav class="home-rail__nav" aria-label="Primary">
-        {{ range .Site.Menus.main }}
-          {{- $isExternal := or (strings.HasPrefix .URL "http://") (strings.HasPrefix .URL "https://") (strings.HasPrefix .URL "//") -}}
-          {{- $href := cond $isExternal .URL (.URL | relURL) -}}
-          <a class="home-rail__link" href="{{ $href }}">{{ .Name }}</a>
-        {{ end }}
-        <a class="home-rail__link" href="{{ "index.xml" | relURL }}">RSS</a>
-      </nav>
-
-      <div class="home-rail__footer">
-        <p>Gameplay programming, Unreal Engine, and VR experiments.</p>
-      </div>
-    </section>
+    {{ partial "home-rail.html" . }}
 
     <section class="home-main">
       <article class="home-about">
