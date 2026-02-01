@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <main class="page">
+  <main class="page posts-page">
     <header class="page-header">
       <p class="page-header__eyebrow">{{ .Section | default "Index" | title }}</p>
       <h1>{{ .Title }}</h1>
@@ -11,10 +11,88 @@
       {{ end }}
     </header>
 
-    <section class="post-grid post-grid--dense">
-      {{ range $index, $post := .Pages.ByDate.Reverse }}
-        {{ partial "post-card.html" (dict "page" $post "index" $index) }}
-      {{ end }}
-    </section>
+    {{ $posts := .Pages.ByDate.Reverse }}
+    {{ if eq .Section "posts" }}
+      <div class="posts-page__body">
+        <section class="posts-page__feed" aria-label="Posts">
+          {{ if gt (len $posts) 0 }}
+            <div class="post-grid post-grid--dense">
+              {{ range $index, $post := $posts }}
+                {{ partial "post-card.html" (dict "page" $post "index" $index) }}
+              {{ end }}
+            </div>
+          {{ else }}
+            <p>No posts yet. Check back soon.</p>
+          {{ end }}
+        </section>
+
+        <aside class="posts-page__sidebar" aria-label="Post filters">
+          <div class="sidebar-panel">
+            <div class="sidebar-panel__header">
+              <p class="sidebar-panel__eyebrow">Filter</p>
+              <h2>By tag</h2>
+            </div>
+            <p class="sidebar-panel__summary">
+              Choose a tag to jump to its archive and narrow the list to that topic.
+            </p>
+
+            {{ $tagList := slice }}
+            {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+              {{ with $taxonomy.Page }}
+                {{ $tagList = $tagList | append (dict "name" $name "count" $taxonomy.Count "link" .RelPermalink) }}
+              {{ end }}
+            {{ end }}
+
+            {{ if gt (len $tagList) 0 }}
+              <ul class="sidebar-panel__list">
+                {{ range $tagList | sort "count" "desc" }}
+                  <li>
+                    <a class="sidebar-panel__link" href="{{ .link }}">
+                      <span>{{ .name }}</span>
+                      <span class="sidebar-panel__count">{{ .count }}</span>
+                    </a>
+                  </li>
+                {{ end }}
+              </ul>
+            {{ else }}
+              <p class="sidebar-panel__empty">No tags yet. Check back later.</p>
+            {{ end }}
+          </div>
+
+          <div class="sidebar-panel">
+            <div class="sidebar-panel__header">
+              <p class="sidebar-panel__eyebrow">Explore</p>
+              <h2>More filters</h2>
+            </div>
+            <ul class="sidebar-panel__list">
+              <li>
+                <a class="sidebar-panel__link" href="{{ "/posts/" | relURL }}">
+                  <span>All posts</span>
+                  <span class="sidebar-panel__count">{{ len $posts }}</span>
+                </a>
+              </li>
+              <li>
+                <a class="sidebar-panel__link" href="{{ "/projects/" | relURL }}">
+                  <span>Projects & updates</span>
+                </a>
+              </li>
+              {{ with .Site.Params.archiveUrl }}
+                <li>
+                  <a class="sidebar-panel__link" href="{{ . | relURL }}">
+                    <span>Archive</span>
+                  </a>
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        </aside>
+      </div>
+    {{ else }}
+      <section class="post-grid post-grid--dense">
+        {{ range $index, $post := $posts }}
+          {{ partial "post-card.html" (dict "page" $post "index" $index) }}
+        {{ end }}
+      </section>
+    {{ end }}
   </main>
 {{ end }}

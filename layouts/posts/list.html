@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <main class="page page--timeline">
+  <main class="page posts-page page--timeline">
     <header class="page-header">
       <p class="page-header__eyebrow">{{ .Section | default "Index" | title }}</p>
       <h1>{{ .Title }}</h1>
@@ -11,31 +11,96 @@
       {{ end }}
     </header>
 
-    <section class="post-timeline">
-      {{ $currentYear := "" }}
-      {{ range $index, $post := .Pages.ByDate.Reverse }}
-        {{ $year := $post.Date.Format "2006" }}
-        {{ if ne $year $currentYear }}
+    <div class="posts-page__body">
+      <section class="posts-page__feed" aria-label="Posts">
+        <section class="post-timeline">
+          {{ $currentYear := "" }}
+          {{ range $index, $post := .Pages.ByDate.Reverse }}
+            {{ $year := $post.Date.Format "2006" }}
+            {{ if ne $year $currentYear }}
+              {{ if ne $currentYear "" }}
+                </div>
+              </section>
+              {{ end }}
+              <section class="timeline-group">
+                <div class="timeline-group__header">
+                  <div>
+                    <p class="timeline-group__eyebrow">Year</p>
+                    <h2 class="timeline-group__year">{{ $year }}</h2>
+                  </div>
+                </div>
+                <div class="timeline-group__posts post-grid">
+            {{ end }}
+            {{ partial "post-card.html" (dict "page" $post "index" $index) }}
+            {{ $currentYear = $year }}
+          {{ end }}
           {{ if ne $currentYear "" }}
             </div>
           </section>
           {{ end }}
-          <section class="timeline-group">
-            <div class="timeline-group__header">
-              <div>
-                <p class="timeline-group__eyebrow">Year</p>
-                <h2 class="timeline-group__year">{{ $year }}</h2>
-              </div>
-            </div>
-            <div class="timeline-group__posts post-grid">
-        {{ end }}
-        {{ partial "post-card.html" (dict "page" $post "index" $index) }}
-        {{ $currentYear = $year }}
-      {{ end }}
-      {{ if ne $currentYear "" }}
-        </div>
+        </section>
       </section>
-      {{ end }}
-    </section>
+
+      <aside class="posts-page__sidebar" aria-label="Post filters">
+        <div class="sidebar-panel">
+          <div class="sidebar-panel__header">
+            <p class="sidebar-panel__eyebrow">Filter</p>
+            <h2>By tag</h2>
+          </div>
+          <p class="sidebar-panel__summary">
+            Choose a tag to jump to its archive and filter the posts by topic.
+          </p>
+
+          {{ $tagList := slice }}
+          {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+            {{ with $taxonomy.Page }}
+              {{ $tagList = $tagList | append (dict "name" $name "count" (int $taxonomy.Count) "link" .RelPermalink) }}
+            {{ end }}
+          {{ end }}
+
+            {{ if gt (len $tagList) 0 }}
+              <ul class="sidebar-panel__list">
+                {{ range $tagList }}
+                <li>
+                  <a class="sidebar-panel__link" href="{{ .link }}">
+                    <span>{{ .name }}</span>
+                    <span class="sidebar-panel__count">{{ .count }}</span>
+                  </a>
+                </li>
+              {{ end }}
+            </ul>
+          {{ else }}
+            <p class="sidebar-panel__empty">No tags yet. Check back later.</p>
+          {{ end }}
+        </div>
+
+        <div class="sidebar-panel">
+          <div class="sidebar-panel__header">
+            <p class="sidebar-panel__eyebrow">Explore</p>
+            <h2>Other filters</h2>
+          </div>
+          <ul class="sidebar-panel__list">
+              <li>
+                <a class="sidebar-panel__link" href="{{ "/posts/" | relURL }}">
+                  <span>All posts</span>
+                  <span class="sidebar-panel__count">{{ len .Pages }}</span>
+                </a>
+              </li>
+            <li>
+              <a class="sidebar-panel__link" href="{{ "/projects/" | relURL }}">
+                <span>Projects & updates</span>
+              </a>
+            </li>
+            {{ with .Site.Params.archiveUrl }}
+              <li>
+                <a class="sidebar-panel__link" href="{{ . | relURL }}">
+                  <span>Archive</span>
+                </a>
+              </li>
+            {{ end }}
+          </ul>
+        </div>
+      </aside>
+    </div>
   </main>
 {{ end }}

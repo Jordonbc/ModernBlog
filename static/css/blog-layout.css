@@ -427,6 +427,122 @@ body.list .main {
   font-size: 0.95rem;
 }
 
+.posts-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.posts-page__body {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+
+.posts-page__feed {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.posts-page__sidebar {
+  position: sticky;
+  top: 3.5rem;
+  flex: 0 0 320px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sidebar-panel {
+  padding: 1.5rem;
+  border-radius: 18px;
+  background: rgba(18, 24, 34, 0.7);
+  border: 1px solid rgba(110, 231, 255, 0.2);
+  box-shadow: 0 18px 45px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.sidebar-panel__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sidebar-panel__eyebrow {
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.sidebar-panel__header h2 {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.35rem;
+}
+
+.sidebar-panel__summary {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.sidebar-panel__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.sidebar-panel__link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-size: 0.85rem;
+  padding: 0.55rem 0.25rem;
+  border-radius: 8px;
+  color: var(--ink);
+  background: transparent;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-panel__link:hover {
+  background: rgba(110, 231, 255, 0.12);
+  color: #ffffff;
+}
+
+.sidebar-panel__count {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.sidebar-panel__empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 1100px) {
+  .posts-page__body {
+    flex-direction: column;
+  }
+
+  .posts-page__sidebar {
+    position: static;
+    top: auto;
+    flex: 1 1 100%;
+    max-width: none;
+  }
+}
+
 .page--timeline .page-header {
   margin-bottom: 3rem;
 }
