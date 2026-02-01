@@ -7,18 +7,6 @@
 
   <main class="home">
     <section class="home-main">
-      <section class="home-posts">
-        <header class="section-header">
-          <p class="section-header__eyebrow">Writing</p>
-          <h2>Latest posts</h2>
-        </header>
-        <div class="post-grid">
-          {{ range $index, $post := $recent }}
-            {{ partial "post-card.html" (dict "page" $post "index" $index) }}
-          {{ end }}
-        </div>
-      </section>
-
       {{ if gt (len $featured) 0 }}
         <section class="home-featured">
           <header class="section-header">
@@ -32,6 +20,18 @@
           </div>
         </section>
       {{ end }}
+
+      <section class="home-posts">
+        <header class="section-header">
+          <p class="section-header__eyebrow">Writing</p>
+          <h2>Latest posts</h2>
+        </header>
+        <div class="post-grid">
+          {{ range $index, $post := $recent }}
+            {{ partial "post-card.html" (dict "page" $post "index" $index) }}
+          {{ end }}
+        </div>
+      </section>
     </section>
   </main>
 {{ end }}
