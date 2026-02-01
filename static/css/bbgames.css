@@ -509,6 +509,115 @@ main.home {
   pointer-events: none;
 }
 
+.content .highlight {
+  margin: 1.35rem 0;
+  position: relative;
+  isolation: isolate;
+  background: rgba(13, 18, 24, 0.08);
+  padding: 1rem 1.2rem;
+  border-radius: 14px;
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 22px 34px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+}
+
+.content .highlight::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 0.35;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.content .highlight .chroma {
+  background: transparent;
+}
+
+.content .highlight table {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.content .highlight .lntd {
+  padding: 0;
+}
+
+.content .highlight td {
+  padding: 0;
+  border: 0;
+  vertical-align: top;
+}
+
+.content .highlight td:first-child {
+  padding-right: 0.75rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  opacity: 0.8;
+}
+
+.content .highlight td:last-child {
+  padding-left: 0.9rem;
+}
+
+.content .highlight .lnt {
+  display: block;
+  text-align: right;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--muted);
+  pointer-events: none;
+  user-select: none;
+}
+
+.content .highlight pre {
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.content .highlight pre::before {
+  content: none;
+}
+
+.content .highlight code {
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.content .highlight .line {
+  display: block;
+}
+
+.content .highlight .ln {
+  display: inline-block;
+  min-width: 2.4ch;
+  padding-right: 0.9rem;
+  text-align: right;
+  color: var(--muted);
+  user-select: none;
+  pointer-events: none;
+}
+
+.content .highlight .cl {
+  display: inline-block;
+}
+
+.content .highlight td:last-child .line {
+  padding-left: 0.9rem;
+  display: block;
+}
+
 .content code {
   font-family: "IBM Plex Mono", monospace;
   font-size: 0.9em;
