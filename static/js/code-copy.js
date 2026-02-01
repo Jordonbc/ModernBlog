@@ -43,9 +43,6 @@
     if (!block.style.position || block.style.position === "static") {
       block.style.position = "relative";
     }
-    if (!block.style.paddingTop) {
-      block.style.paddingTop = "2.4rem";
-    }
     if (!block.style.boxSizing) {
       block.style.boxSizing = "border-box";
     }
