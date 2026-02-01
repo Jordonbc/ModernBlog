@@ -1,2 +1,2 @@
 <script defer src="{{ "js/home-columns.js" | relURL }}"></script>
-<script defer src="{{ "js/code-copy.js" | relURL }}"></script>
+<script defer src="{{ "js/code-copy.js" | relURL }}{{ if hugo.IsServer }}?v={{ now.UnixNano }}{{ end }}"></script>
