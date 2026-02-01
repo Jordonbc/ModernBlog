@@ -487,41 +487,67 @@ main.home {
 .content pre {
   position: relative;
   isolation: isolate;
-  background: rgba(13, 18, 24, 0.08) !important;
+  background: transparent !important;
   padding: 1rem 1.2rem;
   border-radius: 14px;
-  overflow-x: auto;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 22px 34px rgba(0, 0, 0, 0.5);
-  background-clip: padding-box;
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  border: none;
+  box-shadow: none;
+  background-clip: border-box;
+}
+
+.content pre::before,
+.content pre::after {
+  content: none;
 }
 
 .content pre::before {
-  content: "";
-  position: absolute;
-  inset: -6px;
-  background: rgba(255, 255, 255, 0.08);
-  opacity: 0.35;
-  z-index: -1;
-  border-radius: inherit;
-  pointer-events: none;
+  content: none;
 }
 
 .content .highlight {
   margin: 1.35rem 0;
   position: relative;
   isolation: isolate;
-  background: rgba(13, 18, 24, 0.08);
+  background: transparent;
   padding: 1rem 1.2rem;
   border-radius: 14px;
-  overflow-x: auto;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 22px 34px rgba(0, 0, 0, 0.5);
-  background-clip: padding-box;
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  scrollbar-width: none;
+}
+
+.content .highlight::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.content pre {
+  scrollbar-width: none;
+}
+
+.content pre::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.content .chroma,
+.content pre.chroma,
+.content .highlight pre {
+  background: transparent !important;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
 }
 
 .content .highlight::before {
@@ -627,6 +653,26 @@ main.home {
   position: relative;
   display: block;
   width: 100%;
+}
+
+.code-copy-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: rgba(13, 18, 24, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 22px 34px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.code-copy-wrapper > .highlight,
+.code-copy-wrapper > pre {
+  position: relative;
+  z-index: 1;
 }
 
 .code-copy-button {
